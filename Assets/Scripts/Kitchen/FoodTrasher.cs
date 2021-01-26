@@ -10,6 +10,8 @@ namespace CookingPrototype.Kitchen {
 
 		FoodPlace _place = null;
 		float     _timer = 0f;
+		float     _reset = 0.2f;
+		bool      _click = false;
 
 		void Start() {
 			_place = GetComponent<FoodPlace>();
@@ -21,7 +23,17 @@ namespace CookingPrototype.Kitchen {
 		/// </summary>
 		[UsedImplicitly]
 		public void TryTrashFood() {
-			throw new NotImplementedException("TryTrashFood: this feature is not implemented");
+			if(_place.IsFree || _place.CurFood.CurStatus != Food.FoodStatus.Overcooked)
+				return;
+    
+			if ( _click && _timer + _reset >= Time.realtimeSinceStartup) {
+				_click = false;
+				_place.FreePlace();
+			}
+			else {
+				_click = true;
+				_timer = Time.realtimeSinceStartup;
+			}
 		}
 	}
 }

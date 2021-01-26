@@ -43,10 +43,10 @@ namespace CookingPrototype.Controllers {
 		}
 
 		void Start() {
-			Init();
+			//Init();
 		}
 
-		void Init() {
+		public void Init() {
 			if ( _isInit ) {
 				return;
 			}
